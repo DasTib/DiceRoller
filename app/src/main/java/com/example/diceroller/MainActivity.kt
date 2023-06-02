@@ -15,24 +15,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val rollButton: Button = findViewById(R.id.button)
-        rollButton.setOnClickListener {
-            rollDice()
+        rollButton.setOnClickListener { rollDice() }
 
-
-        }
         rollDice()
-
     }
 
-    private fun rollDice() {
-        // Create new Dice object with 6 sides and roll it
-
-        val dice = Dice(6)
-        val diceRoll = dice.roll()
-        val diceImage : ImageView = findViewById(R.id.imageView)
-
-
-        val drawableResource = when (diceRoll) {
+    private fun diceImage(side: Int): Int {
+        return when (side) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -40,9 +29,23 @@ class MainActivity : AppCompatActivity() {
             5 -> R.drawable.dice_5
             6 -> R.drawable.dice_6
             else -> {R.drawable.dice_6}
-
         }
-        diceImage.setImageResource(drawableResource)
+    }
+
+    private fun rollDice() {
+        // Create new Dice object with 6 sides and roll it
+
+        val dice = Dice(6)
+
+        val diceRoll = dice.roll()
+        val diceRoll2 = dice.roll()
+
+        val diceImage : ImageView = findViewById(R.id.imageView)
+        val diceImage2 : ImageView = findViewById(R.id.imageView2)
+
+        diceImage.setImageResource(diceImage(diceRoll))
+        diceImage2.setImageResource(diceImage(diceRoll2))
+
         diceImage.contentDescription = diceRoll.toString()
     }
     /**
